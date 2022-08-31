@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\OperadorController;
+use App\Http\Controllers\OrdenTrabController;
+use App\Http\Controllers\TipoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+Route::resource('operador',OperadorController::class)->except('show');
+Route::resource('tipo',TipoController::class)->except('show');
+Route::resource('orden',OrdenTrabController::class);

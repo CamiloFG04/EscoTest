@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\OrdenImport;
 use App\Models\Operador;
 use App\Models\OrdenTrab;
 use App\Models\Tipo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrdenTrabController extends Controller
 {
@@ -15,12 +16,6 @@ class OrdenTrabController extends Controller
     {
         $ordenes = OrdenTrab::all();
         return view('ordenes.index',compact('ordenes'));
-    }
-
-    public function show($id)
-    {
-        $orden = OrdenTrab::find($id);
-        dd($orden->tipo);
     }
 
     public function create()
@@ -80,5 +75,11 @@ class OrdenTrabController extends Controller
         }else {
             return redirect()->back()->with('error','No se pudo eliminar la orden, intentelo de nuevo');
         }
+    }
+
+    public function excel(Request $request)
+    {
+        Excel::import(new OrdenImport,$request->file('fileImp'));
+        return redirect()->route('orden.index')->with('success', 'Cargados correctamente');
     }
 }

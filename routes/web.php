@@ -3,6 +3,7 @@
 use App\Http\Controllers\OperadorController;
 use App\Http\Controllers\OrdenTrabController;
 use App\Http\Controllers\TipoController;
+use App\Models\OrdenTrab;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +18,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    $ordenes = OrdenTrab::all();
+    return view('index',compact('ordenes'));
 });
-
 Route::resource('operador',OperadorController::class)->except('show');
 Route::resource('tipo',TipoController::class)->except('show');
-Route::resource('orden',OrdenTrabController::class);
+Route::resource('orden',OrdenTrabController::class)->except('show');
+Route::post('orden.excel',[OrdenTrabController::class,'excel'])->name('orden.excel');

@@ -22,6 +22,7 @@
                         <div class="col-md-4">
                             <div class="card mb-3">
                                 <div class="card-body">
+                                    <h5>ID:{{$operador->ID_OPERADOR}}</h5>
                                     <h5 class="card-title text-center mb-3">{{$operador->NOMBRE}}</h5>
                                 </div>
                                 <div class="card-body d-grid gap-2 col-10 mx-auto">
